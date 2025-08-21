@@ -1,6 +1,7 @@
 # 🏥 Smart Healthcare Assistant
 
-An open-source, full-stack healthcare diagnostics assistant powered by Agentic AI, Angular 17+, and .NET 8. Designed to demonstrate modern clean architecture, AI-driven design, and real-world healthcare use cases — completely free and publicly available.
+An open-source, full-stack healthcare diagnostics assistant powered by **Agentic AI, Angular 17+, and .NET 8**.  
+Designed to demonstrate **clean architecture, AI-driven workflows, and real-world healthcare use cases** — completely free and publicly available.
 
 ---
 
@@ -26,6 +27,81 @@ An open-source, full-stack healthcare diagnostics assistant powered by Agentic A
 
 ---
 
+## 📐 Architecture Overview
+
+This project adopts the **Next Full-Stack Shift**:  
+**.NET + Angular + AI (LLM → MCP → Agents)**
+
+```
+ ┌─────────────────────────────┐
+ │        Angular UI            │
+ │  - Chat / Copilot panel      │
+ │  - Forms (encounter, order)  │
+ │  - Streaming token viewer    │
+ │  - Tool traces + citations   │
+ └─────────────▲────────────────┘
+               │ SSE / REST
+               │
+ ┌─────────────┴────────────────┐
+ │      .NET AI Gateway API     │
+ │  - ChatController (SSE)      │
+ │  - Provider adapters (OpenAI)│
+ │  - Safety filters, RBAC      │
+ └─────────────▲────────────────┘
+               │ delegates
+               │
+ ┌─────────────┴────────────────┐
+ │     Agent Orchestrator       │
+ │  - Supervisor Agent          │
+ │  - TriageAgent (symptoms)    │
+ │  - CodingAgent (ICD-10/CPT)  │
+ │  - ImagingAgent (PACS)       │
+ │  - DataAgent (policies/RAG)  │
+ └─────────────▲────────────────┘
+               │ tool calls
+               │
+   ┌───────────┴───────────┐
+   │       MCP Tool Servers │
+   │────────────────────────│
+   │ FHIR/EHR  ─ read/write │
+   │ PACS/DICOM ─ imaging   │
+   │ RAG KB    ─ SOP/policy │
+   │ Observability ─ ops    │
+   │ Scheduling/Payments    │
+   └───────────▲───────────┘
+               │ HTTP/gRPC
+               │
+ ┌─────────────┴────────────────┐
+ │   Core .NET Backend           │
+ │  - Domain • Application       │
+ │  - Infrastructure (clients)   │
+ │  - Adapters (FHIR, PACS, etc) │
+ └─────────────▲────────────────┘
+               │
+   ┌───────────┴───────────┐
+   │      Data Stores       │
+   │────────────────────────│
+   │ Relational DB (EHR ops)│
+   │ Vector DB (pgvector)   │
+   │ Blob storage (docs)    │
+   └────────────────────────┘
+```
+
+📄 For a clean PDF version with business cases, see  
+[Smart Healthcare Assistant — Architecture & Business Cases (PDF)](./docs/smart-healthcare-assistant-architecture.pdf)
+
+---
+
+## 💡 Business Cases
+
+- 🩺 **Intelligent Triage** — symptom input → AI reasoning + policy lookup → safe clinical suggestions  
+- 💳 **Coding Copilot** — FHIR read → ICD-10 / CPT draft suggestions → billing support  
+- 🖼 **Imaging Assistant** — PACS queries + dose policy checks → study recommendations  
+- 📑 **Policy & SOP Q&A** — RAG-backed answers with citations → compliance made easy  
+- ⚙ **Ops Copilot** — observability insights → faster MTTR for on-call developers  
+
+---
+
 ## 🧪 Features
 
 - Symptom checker with AI reasoning
@@ -47,7 +123,7 @@ An open-source, full-stack healthcare diagnostics assistant powered by Agentic A
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/smart-healthcare-assistant.git
+git clone https://github.com/vinaygs911/smart-healthcare-assistant.git
 
 # Navigate to frontend
 cd frontend
@@ -85,6 +161,7 @@ dotnet run
 - `/backend` - .NET Web API
 - `/agents` - AI logic modules
 - `/infra` - Docker, CI/CD, DB migrations
+- `/docs` - Architecture diagrams & PDF
 
 ---
 
@@ -103,9 +180,11 @@ Apache 2.0 — Free for personal, commercial, and educational use.
 
 ## 🙌 Credits
 
-Maintained by [Vinay G S](https://www.linkedin.com/in/vinay-gs/)  
+Maintained by [Vinay G S](https://www.linkedin.com/in/gsvinaymakam)  
 Logo/banner by ChatGPT + DALL·E
 
 ---
 
-## ⭐️ Give us a star if you like this project and want to support open innovation in healthcare!
+## ⭐️ Support
+
+Give us a ⭐️ if you like this project and want to support open innovation in healthcare!
